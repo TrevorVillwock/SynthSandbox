@@ -42,7 +42,10 @@ window.onload = () => {
 	delayFeedbackNumber = document.getElementById("delayFeedbackNumber");
 	delayVolSlider = document.getElementById("delayVolumeSlider");
 	autoFilterRateSlider = document.getElementById("autoFilterRateSlider");
-	document.addEventListener('keydown', (event)=>{console.log(event.key)});
+	
+	document.addEventListener('keydown', (event)=>{
+		console.log(event.key)
+	});
 }
 
 /* The first 3 octaves and first 8 pitches of the harmonic series starting on
@@ -66,7 +69,9 @@ delay.maxDelay = 5;
 
 synth ---> autofilter ---> filter ---> delay ---> main volume
                              |                        |
-                             |------------------------|
+                             |----------------------->|
+Note that the filter is passed directly to the main output as well as the delay so we still
+hear the original undelayed signal
 */
 sawSynth.connect(autoFilter);
 autoFilter.connect(filter);
@@ -250,13 +255,6 @@ function setDelayVolume() {
 function setAutoFilterRate() {
 	autoFilter.frequency.value = autoFilterRateSlider.value;
 	// console.log(autoFilter.frequency.value);
-}
-
-function detectKeys() {
-	window.onkeydown = function(key){
-		
-	}
-
 }
 
 function closeModal() {
