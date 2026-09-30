@@ -1,0 +1,326 @@
+/* ==========================================================================
+   Design tokens
+   ========================================================================== */
+:root {
+    --bg-top: #C7A6F7;
+    --bg-bottom: #8E6FE0;
+    --chassis: #2B1854;
+    --chassis-edge: #180B33;
+    --panel-title: #761ee9;
+    --accent: #1ea5e9;
+    --accent-dim: #146a94;
+    --led: #7CFFB2;
+    --led-dim: #2f7a53;
+    --ink: #F4EFFF;
+    --ink-dim: #C9B8F0;
+    --shadow: rgba(15, 5, 40, 0.45);
+
+    --font-display: 'Space Grotesk', 'Trebuchet MS', sans-serif;
+    --font-body: 'Inter', 'Segoe UI', sans-serif;
+    --font-mono: 'Space Mono', 'Courier New', monospace;
+
+    --rack-max-width: 1180px;
+    --panel-gap: clamp(16px, 2vw, 28px);
+    --panel-radius: 14px;
+}
+
+* {
+    box-sizing: border-box;
+    font-family: var(--font-body);
+}
+
+/* ==========================================================================
+   Base
+   ========================================================================== */
+body {
+    margin: 0;
+    min-height: 100vh;
+    background: radial-gradient(ellipse at top, var(--bg-top), var(--bg-bottom));
+    color: var(--ink);
+}
+
+h1, h2, h3 {
+    font-family: var(--font-display);
+    margin: 0;
+}
+
+/* ==========================================================================
+   Page shell — fills a standard desktop viewport, scales down responsively
+   ========================================================================== */
+.app {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: var(--rack-max-width);
+    margin: 0 auto;
+    padding: clamp(16px, 3vw, 40px) clamp(16px, 4vw, 32px) 60px;
+}
+
+.rack-header {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: clamp(16px, 2.5vw, 28px);
+}
+
+#project-name {
+    font-size: clamp(28px, 4vw, 44px);
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    color: var(--ink);
+    background: linear-gradient(135deg, var(--panel-title), var(--accent));
+    border: 6px solid var(--chassis-edge);
+    border-radius: 10px;
+    padding: 10px 28px;
+    box-shadow: 0 8px 20px var(--shadow);
+    text-align: center;
+}
+
+.meme {
+    display: block;
+    width: 100%;
+    max-width: 320px;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    border-radius: 12px;
+    border: 4px solid var(--chassis-edge);
+    box-shadow: 0 8px 20px var(--shadow);
+    margin: 8px auto 0;
+}
+
+/* ==========================================================================
+   Rack — responsive grid of panels
+   ========================================================================== */
+.rack {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: var(--panel-gap);
+    align-items: start;
+}
+
+.panel {
+    background: var(--chassis);
+    border: 3px solid var(--chassis-edge);
+    border-radius: var(--panel-radius);
+    padding: 20px 22px 26px;
+    box-shadow: 0 14px 30px var(--shadow), inset 0 0 0 1px rgba(255,255,255,0.03);
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.panel-title {
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink);
+    background: var(--panel-title);
+    margin: -20px -22px 4px;
+    padding: 10px 22px;
+    border-radius: calc(var(--panel-radius) - 3px) calc(var(--panel-radius) - 3px) 0 0;
+    border-bottom: 2px solid var(--chassis-edge);
+}
+
+.sub-heading {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-dim);
+    border-top: 1px solid rgba(255,255,255,0.08);
+    padding-top: 12px;
+    margin-top: 4px;
+}
+
+/* ==========================================================================
+   Buttons & toggles
+   ========================================================================== */
+#button-container {
+    display: flex;
+    gap: 10px;
+}
+
+.buttons {
+    flex: 1;
+    background: var(--accent);
+    color: var(--chassis-edge);
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 0.05em;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 0;
+    cursor: pointer;
+    transition: transform 0.08s ease, background 0.15s ease;
+}
+
+.buttons:hover {
+    background: #3fc2ff;
+}
+
+.buttons:active {
+    transform: translateY(1px);
+    background: var(--accent-dim);
+}
+
+.toggle-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 18px;
+}
+
+.check-box-container {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.check-box {
+    width: 18px;
+    height: 18px;
+    accent-color: var(--accent);
+}
+
+.check-box-label {
+    font-size: 13px;
+    color: var(--ink-dim);
+}
+
+/* ==========================================================================
+   Controls (label row + slider + LED readout)
+   ========================================================================== */
+.control {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.control-label-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.control-label-row label {
+    font-size: 13px;
+    color: var(--ink-dim);
+}
+
+.readout {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--ink-dim);
+    white-space: nowrap;
+}
+
+.number-box {
+    width: 56px;
+    background: #0F0824;
+    color: var(--led);
+    border: 1px solid var(--led-dim);
+    border-radius: 4px;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    text-align: center;
+    padding: 3px 2px;
+}
+
+.delay-number {
+    width: 48px;
+}
+
+/* Custom slider styling */
+.control-slider {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 5px;
+    border-radius: 3px;
+    background: linear-gradient(90deg, var(--accent), var(--accent-dim));
+    outline: none;
+    cursor: pointer;
+}
+
+.control-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: var(--ink);
+    border: 3px solid var(--accent);
+    box-shadow: 0 2px 6px var(--shadow);
+    cursor: pointer;
+}
+
+.control-slider::-moz-range-thumb {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: var(--ink);
+    border: 3px solid var(--accent);
+    box-shadow: 0 2px 6px var(--shadow);
+    cursor: pointer;
+}
+
+/* ==========================================================================
+   Start modal
+   ========================================================================== */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    inset: 0;
+    background-color: rgba(15, 5, 40, 0.6);
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+#modal-content {
+    background-color: var(--panel-title);
+    border: 3px solid var(--chassis-edge);
+    border-radius: 12px;
+    padding: 28px 34px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 20px 50px var(--shadow);
+}
+
+.close {
+    color: var(--ink);
+    font-family: var(--font-display);
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.close:hover,
+.close:focus {
+    color: var(--led);
+    cursor: pointer;
+}
+
+/* ==========================================================================
+   Responsive breakpoints
+   ========================================================================== */
+@media (max-width: 640px) {
+    .rack {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .buttons {
+        transition: none;
+    }
+}
