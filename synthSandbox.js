@@ -45,7 +45,17 @@ window.onload = () => {
 	
 	document.addEventListener('keydown', (event)=>{
 		console.log(event.key)
+		if (event.key === "f") {
+			if (filter_type_index + 1 === filter_types.length) {
+				filter_type_index = 0
+			} else {
+				filter_type_index += 1
+			}
+			console.log([filter_types[filter_type_index], filter_type_index])
+		}
 	});
+
+	filter.type = filter_types[filter_type_index]
 }
 
 /* The first 3 octaves and first 8 pitches of the harmonic series starting on
@@ -62,6 +72,9 @@ const sawSynth = new Tone.AMOscillator({
 );
 const autoFilter = new Tone.AutoFilter("4n", 100, 5).start();
 const filter = new Tone.Filter(2000, "lowpass");
+const filter_types = ["lowpass", "highpass"]
+var filter_type_index = 0
+
 const delay = new Tone.FeedbackDelay("8n", 0.5);
 delay.maxDelay = 5;
 
