@@ -28,8 +28,8 @@ let autoFilterRateSlider;
 // Retrieved 2026-10-21, License - CC BY-SA 4.0
 
 
-window.onkeydown = function(e) {
-    return e.keyCode !== 32 && e.key !== " ";
+window.onkeydown = function (e) {
+	return e.keyCode !== 32 && e.key !== " ";
 }
 
 window.onload = () => {
@@ -51,8 +51,8 @@ window.onload = () => {
 	delayFeedbackNumber = document.getElementById("delayFeedbackNumber");
 	delayVolSlider = document.getElementById("delayVolumeSlider");
 	autoFilterRateSlider = document.getElementById("autoFilterRateSlider");
-	
-	document.addEventListener('keydown', (event)=>{
+
+	document.addEventListener('keydown', (event) => {
 		console.log(event.key)
 		if (event.key === "f") {
 			if (filter_type_index + 1 === filter_types.length) {
@@ -62,7 +62,7 @@ window.onload = () => {
 			}
 			console.log([filter_types[filter_type_index], filter_type_index])
 		}
-		
+
 		if (event.key === "d") {
 			toggleDelay();
 		} else if (event.key === " ") {
@@ -87,7 +87,8 @@ const sawSynth = new Tone.AMOscillator({
 	frequency: 100,
 	type: "sawtooth64",
 	modulationType: "sine",
-	harmonicity: 1},
+	harmonicity: 1
+},
 );
 const autoFilter = new Tone.AutoFilter("4n", 100, 5).start();
 const filter = new Tone.Filter(2000, "lowpass");
@@ -100,8 +101,8 @@ delay.maxDelay = 5;
 /* These lines create the "signal chain" of effects, which we can visualize like this:
 
 synth ---> autofilter ---> filter ---> delay ---> main volume
-                             |                        |
-                             |----------------------->|
+							 |                        |
+							 |----------------------->|
 Note that the filter is passed directly to the main output as well as the delay so we still
 hear the original undelayed signal
 */
@@ -123,7 +124,7 @@ For more see https://tonejs.github.io/docs/14.7.77/LFO */
 const lfo1 = new Tone.LFO(0, 1, 2);
 let lfoRange = 1;
 lfo1.connect(sawSynth.frequency);
-lfo1.set({max: 100, min: 100});
+lfo1.set({ max: 100, min: 100 });
 lfo1.start();
 
 // Boolean variable indicating whether randomness is turned on or off
@@ -154,12 +155,12 @@ function stop() {
 
 function setMainVolume() {
 	/** **********************************************************
-    The html slider gives us values 0-200, which we map
-    to be between -100 and 0 dB because that's what the
-    Tone.js mainVolume object expects.
-    For an explanation of how decibels work check out this page:
-    https://ehomerecordingstudio.com/decibels/
-    *************************************************************/ 
+	The html slider gives us values 0-200, which we map
+	to be between -100 and 0 dB because that's what the
+	Tone.js mainVolume object expects.
+	For an explanation of how decibels work check out this page:
+	https://ehomerecordingstudio.com/decibels/
+	*************************************************************/
 
 	// log2(0) is undefined and will throw an error since there's no power of 2
 	// that equals zero.
@@ -176,7 +177,7 @@ function updateSettings() {
 		clock = Tone.Transport.scheduleRepeat(() => {
 			setVibratoRange();
 			Tone.Transport.bpm.value = parseInt(speedSlider.value) +
-                300 * Math.random();
+				300 * Math.random();
 			speedNumber.value = Math.round(Tone.Transport.bpm.value);
 		}, "8n", "0s");
 	} else if (randomSpeed) {
@@ -184,7 +185,7 @@ function updateSettings() {
 		clock = Tone.Transport.scheduleRepeat(() => {
 			setVibratoRange();
 			Tone.Transport.bpm.value = parseInt(speedSlider.value) +
-                300 * Math.random();
+				300 * Math.random();
 			speedNumber.value = Math.round(Tone.Transport.bpm.value);
 		}, "4n", "0s");
 	} else if (randomPitch) {
@@ -203,7 +204,7 @@ function updateSettings() {
 function setPitch() {
 	let lfoTop = parseInt(pitchSlider.value) * lfoRange;
 	let lfoBottom = parseInt(pitchSlider.value) / lfoRange;
-	lfo1.set({max: lfoTop, min: lfoBottom});
+	lfo1.set({ max: lfoTop, min: lfoBottom });
 	pitchNumber.value = pitchSlider.value;
 }
 
@@ -218,19 +219,19 @@ function setVibratoRange() {
 
 	let lfoTop = (parseInt(pitchSlider.value) + note) * lfoRange;
 	let lfoBottom = (parseInt(pitchSlider.value) + note) / lfoRange;
-	lfo1.set({min: lfoBottom, max: lfoTop});
+	lfo1.set({ min: lfoBottom, max: lfoTop });
 	// console.log("lfo top: " + lfoTop);
 	// console.log("lfo bottom: " + lfoBottom);
 }
 
 function setVibratoFreq() {
-	lfo1.set({frequency: Math.log2(vibratoFreqSlider.value) - 1});
+	lfo1.set({ frequency: Math.log2(vibratoFreqSlider.value) - 1 });
 	// console.log(`lfo frequency: ${lfo1.frequency.value}`);
 }
 
 function setSpeed() {
 	console.log("setSpeed");
-	if (!randomSpeed) { 
+	if (!randomSpeed) {
 		speedNumber.value = Math.round(speedSlider.value);
 		Tone.Transport.bpm.value = speedSlider.value;
 	}
@@ -261,20 +262,20 @@ function setFilterCutoff() {
 
 function setAMFreq() {
 	/* From the Tone.js docs:
-    Harmonicity is the frequency ratio between the carrier and the
-    modulator oscillators. A harmonicity of 1 gives both oscillators 
-    the same frequency. Harmonicity = 2 means a change of an octave. */
-	sawSynth.set({harmonicity: amSlider.value});
+	Harmonicity is the frequency ratio between the carrier and the
+	modulator oscillators. A harmonicity of 1 gives both oscillators 
+	the same frequency. Harmonicity = 2 means a change of an octave. */
+	sawSynth.set({ harmonicity: amSlider.value });
 	console.log("amSlider.value: " + amSlider.value);
 }
 
 function setDelayTime() {
-	delay.set({delayTime: delayTimeSlider.value});
+	delay.set({ delayTime: delayTimeSlider.value });
 	delayTimeNumber.value = delayTimeSlider.value;
 }
 
 function setDelayFeedback() {
-	delay.set({feedback: delayFeedbackSlider.value});
+	delay.set({ feedback: delayFeedbackSlider.value });
 	delayFeedbackNumber.value = delayFeedbackSlider.value;
 }
 
@@ -283,8 +284,8 @@ function setDelayVolume() {
 	// the signal with effects
 	// 0.0 is a totally dry signal, and 1.0 is totally wet signal
 	// For the delay, 1.0 means that the first echo will be the exact same 
-    / volume as the initial sound.*/ 
-	delay.set({wet: delayVolSlider.value});
+	/ volume as the initial sound.*/
+	delay.set({ wet: delayVolSlider.value });
 }
 
 function setAutoFilterRate() {
@@ -294,15 +295,15 @@ function setAutoFilterRate() {
 
 function closeModal() {
 	let modal = document.getElementById("popup");
-	modal.style.display="none";
+	modal.style.display = "none";
 	Tone.start();
 	Tone.Transport.bpm.value = 60;
 }
 
 function toggleDelay() {
 	if (delay.wet.value === 0) {
-		delay.set({wet: 1})
+		delay.set({ wet: 1 })
 	} else {
-		delay.set({wet: 0})
+		delay.set({ wet: 0 })
 	}
 }
