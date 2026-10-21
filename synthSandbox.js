@@ -23,6 +23,15 @@ let delayFeedbackNumber;
 let delayVolSlider;
 let autoFilterRateSlider;
 
+// Source - https://stackoverflow.com/a/2343597
+// Posted by Josh, modified by community. See post 'Timeline' for change history
+// Retrieved 2026-10-21, License - CC BY-SA 4.0
+
+
+window.onkeydown = function(e) {
+    return e.keyCode !== 32 && e.key !== " ";
+}
+
 window.onload = () => {
 	mainVolSlider = document.getElementById("mainVolumeSlider");
 	speedSlider = document.getElementById("speedSlider");
@@ -54,8 +63,14 @@ window.onload = () => {
 			console.log([filter_types[filter_type_index], filter_type_index])
 		}
 		
-		if (event.key === "d"); {
+		if (event.key === "d") {
 			toggleDelay();
+		} else if (event.key === " ") {
+			if (running === true) {
+				stop()
+			} else {
+				start()
+			}
 		}
 	});
 
@@ -120,11 +135,13 @@ let clock = Tone.Transport.scheduleRepeat(() => {
 	setVibratoRange();
 }, "4n", "0s");
 
+let running = false;
 // Run when start button is clicked
 function start() {
 	Tone.Transport.start();
 	updateSettings();
 	sawSynth.start();
+	running = true;
 }
 
 // Run when the stop button is clicked
@@ -132,6 +149,7 @@ function stop() {
 	sawSynth.stop();
 	Tone.Transport.clear(clock);
 	Tone.Transport.stop();
+	running = false
 }
 
 function setMainVolume() {

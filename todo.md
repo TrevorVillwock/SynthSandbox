@@ -11,7 +11,8 @@
 - ### Irks
 
         - [ ] The `<input>` tags for number displays are misleading, leading me to try and manually edit them multiple times
+        - [x] Spacebar scrolls page when avaliable (we don't want that)
 
 - ### Features
 
-        - [ ] Spacebar starting/stopping playback
+        - [x] Spacebar starting/stopping playback
