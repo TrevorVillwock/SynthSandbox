@@ -53,6 +53,10 @@ window.onload = () => {
 			}
 			console.log([filter_types[filter_type_index], filter_type_index])
 		}
+		
+		if (event.key === "d"); {
+			toggleDelay();
+		}
 	});
 
 	filter.type = filter_types[filter_type_index]
@@ -275,4 +279,12 @@ function closeModal() {
 	modal.style.display="none";
 	Tone.start();
 	Tone.Transport.bpm.value = 60;
+}
+
+function toggleDelay() {
+	if (delay.wet.value === 0) {
+		delay.set({wet: 1})
+	} else {
+		delay.set({wet: 0})
+	}
 }
