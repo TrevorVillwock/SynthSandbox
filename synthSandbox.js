@@ -60,11 +60,12 @@ window.onload = () => {
 			} else {
 				filter_type_index += 1
 			}
-			console.log([filter_types[filter_type_index], filter_type_index])
+			filter.type = filter_types[filter_type_index]
 		}
 
 		if (event.key === "d") {
 			toggleDelay();
+
 		} else if (event.key === " ") {
 			if (running === true) {
 				stop()
@@ -74,7 +75,6 @@ window.onload = () => {
 		}
 	});
 
-	filter.type = filter_types[filter_type_index]
 }
 
 /* The first 3 octaves and first 8 pitches of the harmonic series starting on
@@ -143,6 +143,7 @@ function start() {
 	updateSettings();
 	sawSynth.start();
 	running = true;
+	draw();
 }
 
 // Run when the stop button is clicked

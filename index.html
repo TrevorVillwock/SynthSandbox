@@ -10,6 +10,7 @@
         <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Space+Mono:wght@400;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="styles.css">
         <script src='https://cdnjs.cloudflare.com/ajax/libs/tone/14.7.53/Tone.js'></script>
+        <script src="./visualizer.js"></script>
         <script src='./synthSandbox.js' defer></script>
     </head>
     <body>
@@ -143,7 +144,16 @@
                         <input class="control-slider" type="range" min="0.25" max="20" value="1" id="autoFilterRateSlider" oninput="setAutoFilterRate()">
                     </div>
                 </section>
+                
+                <section class="panel" aria-labelledby="visualizer-heading">
+                    <h2 id="fx-heading" class="panel-title">Visualizer</h2>
 
+                    <!-- <h3 class="sub-heading">Delay (Echo)</h3> -->
+
+                    <div class="control">
+                        <canvas id="visualizer-canvas"></canvas>
+                    </div>
+                </section>
             </div>
         </div>
     </body>
