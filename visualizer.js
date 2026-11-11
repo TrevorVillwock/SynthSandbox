@@ -1,4 +1,4 @@
-export function draw() {
+function draw() {
     const canvas = document.getElementById("visualizer-canvas");
     const ctx = canvas.getContext("2d");
     
