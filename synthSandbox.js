@@ -90,6 +90,16 @@ const sawSynth = new Tone.AMOscillator({
 	harmonicity: 1
 },
 );
+let sawSynthArray = sawSynth.asArray()
+console.log("Below is the sawSynth as an array")
+console.log(sawSynthArray);
+
+console.log("Below is all of the elements in the sawSynthArray")
+for (let index = 0; index < sawSynthArray.valueOf().length; index++) {
+	const element = sawSynthArray[index];
+	console.log(index)
+}
+
 const autoFilter = new Tone.AutoFilter("4n", 100, 5).start();
 const filter = new Tone.Filter(2000, "lowpass");
 const filter_types = ["lowpass", "highpass"]
