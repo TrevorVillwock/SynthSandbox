@@ -90,14 +90,14 @@ const sawSynth = new Tone.AMOscillator({
 	harmonicity: 1
 },
 );
-let sawSynthArray = sawSynth.asArray()
-console.log("Below is the sawSynth as an array")
-console.log(sawSynthArray);
 
-console.log("Below is all of the elements in the sawSynthArray")
+console.log("Below is the sawSynth waveform as an array")
+let sawSynthArray;
+let temp = sawSynth.asArray().then((data) => {console.log(data)})
+
 for (let index = 0; index < sawSynthArray.valueOf().length; index++) {
 	const element = sawSynthArray[index];
-	console.log(index)
+	console.log(element)
 }
 
 const autoFilter = new Tone.AutoFilter("4n", 100, 5).start();
