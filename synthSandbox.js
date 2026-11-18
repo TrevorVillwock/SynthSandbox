@@ -88,17 +88,16 @@ const sawSynth = new Tone.AMOscillator({
 	type: "sawtooth64",
 	modulationType: "sine",
 	harmonicity: 1
-},
-);
+});
 
 console.log("Below is the sawSynth waveform as an array")
 let sawSynthArray;
-let temp = sawSynth.asArray().then((data) => {console.log(data)})
-
-for (let index = 0; index < sawSynthArray.valueOf().length; index++) {
-	const element = sawSynthArray[index];
-	console.log(element)
-}
+let temp = sawSynth.asArray().then((data) => {
+	console.log(data)
+	for (let i = 0; i < 100; ++i){
+		console.log(data[i])
+	}
+})
 
 const autoFilter = new Tone.AutoFilter("4n", 100, 5).start();
 const filter = new Tone.Filter(2000, "lowpass");
